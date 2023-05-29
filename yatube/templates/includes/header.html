@@ -1,0 +1,67 @@
+{% load static %}
+{% with request.resolver_match.view_name as view_name %}
+  <nav class="navbar navbar-light" style="background-color: #B2DFDB">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'posts:index' %}">
+        <img src="{% static 'img/white_logo.jpg' %}" width="40" height="40" 
+          class="d-inline-block align-top" alt="">
+        <span style="color:teal">Free Space</span>
+      </a>
+      <ul class="nav nav-pills">
+        <li class="nav-item"> 
+          <a class="nav-link 
+            {% if view_name  == 'about:author' %}active{% endif %}"
+              href="{% url 'about:author' %}">
+              <span style="color:teal">Об авторе</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if view_name  == 'about:tech' %}active
+          {% endif %}"
+          href="{% url 'about:tech' %}">
+          <span style="color:teal">Технологии</span></a>
+        </li>
+        {% if request.user.is_authenticated %}
+          <li class="nav-item"> 
+            <a class="nav-link
+              {% if view_name  == 'posts:post_create' %}active{% endif %}"
+                href="{% url 'posts:post_create' %}">
+                <span style="color:#A5694F">Новая запись</span></a>
+          </li>
+          <li class="nav-item"> 
+            <a class="nav-link link-light
+              {% if view_name  == 'users:password_change_form' %}active
+              {% endif %}"
+                href="{% url 'users:password_change_form' %}">
+                <span style="color:#A5694F">Изменить пароль</span></a>
+          </li>
+          <li class="nav-item"> 
+            <a class="nav-link link-light
+              {% if view_name  == 'users:logout' %}active{% endif %}"
+                href="{% url 'users:logout' %}">
+                <span style="color:#A5694F">Выйти</span></a>
+          </li>
+          <li class="nav-item"> 
+            <a class="nav-link link-light
+              {% if view_name  == 'posts:profile' %}active
+              {% endif %}"
+                href="{% url 'posts:profile' user.username %}">
+                @{{ user.username.get_full_name }}</a>
+          </li>
+        {% else %}
+          <li class="nav-item"> 
+            <a class="nav-link link-light
+              {% if view_name  == 'users:login' %}active{% endif %}"
+                href="{% url 'users:login' %}">
+                <span style="color:#A5694F">Войти</span></a>
+          </li>
+          <li class="nav-item"> 
+            <a class="nav-link link-light
+              {% if view_name  == 'users:signup' %}active{% endif %}"
+                href="{% url 'users:signup' %}">
+                <span style="color:#A5694F">Регистрация</span></a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+{% endwith %}
