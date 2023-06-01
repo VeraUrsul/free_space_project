@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+from .views import AddLikeView, RemoveLikeView
 
 app_name = 'posts'
 
@@ -18,4 +19,7 @@ urlpatterns = [
          name='profile_follow'),
     path('profile/<str:username>/unfollow/', views.profile_unfollow,
          name='profile_unfollow'),
+    path('add/', AddLikeView.as_view(), name='add'),
+    path('remove/', RemoveLikeView.as_view(), name='remove'),
+
 ]

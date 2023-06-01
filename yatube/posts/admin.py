@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Comment, Follow, Group, Post
+from .models import Comment, Follow, Like, Group, Post
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -39,3 +39,11 @@ class FollowAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Follow, FollowAdmin)
+
+
+class LikeAdmin(admin.ModelAdmin):
+    autocomplete_fields = ('liked_by', 'blog_post')
+    list_display = ('blog_post', 'liked_by', 'like', 'created')
+
+
+admin.site.register(Like, LikeAdmin)

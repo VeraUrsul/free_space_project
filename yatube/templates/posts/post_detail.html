@@ -41,6 +41,7 @@
         <p>
           {{ post.text|linebreaksbr }}
         </p>
+        {% include 'posts/includes/likes.html' %}
         {% include 'posts/includes/comment_list.html' %}
       </article>
   </div> 

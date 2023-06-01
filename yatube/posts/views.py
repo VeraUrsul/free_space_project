@@ -2,9 +2,10 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import View
 
 from .forms import CommentForm, PostForm
-from .models import Follow, Group, Post, User
+from .models import Follow, Group, Like, Post, User
 
 
 def page_of_paginator(request, queryset):
@@ -113,3 +114,38 @@ def profile_unfollow(request, username):
         author__username=username
     ).delete()
     return redirect('posts:follow_index')
+
+
+class AddLikeView(View):
+    def post(self, request, *args, **kwargs):
+        blog_post_id = int(request.POST.get('blog_post_id'))
+        user_id = int(request.POST.get('user_id'))
+        url_from = request.POST.get('url_from')
+
+        user_inst = User.objects.get(id=user_id)
+        blog_post_inst = Post.objects.get(id=blog_post_id)
+
+        try:
+            blog_post_inst = Like.objects.get(
+                blog_post=blog_post_inst,
+                liked_by=user_inst
+            )
+        except Exception as error:
+            blog_like = Like(
+                blog_post=blog_post_inst,
+                liked_by=user_inst,
+                like=True
+            )
+            blog_like.save()
+        return redirect(url_from)
+
+
+class RemoveLikeView(View):
+    def post(self, request, *args, **kwargs):
+        blog_likes_id = int(request.POST.get('blog_likes_id'))
+        url_from = request.POST.get('url_from')
+
+        blog_like = Like.objects.get(id=blog_likes_id)
+        blog_like.delete()
+
+        return redirect(url_from)

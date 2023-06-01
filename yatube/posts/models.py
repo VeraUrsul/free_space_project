@@ -140,3 +140,33 @@ class Follow(models.Model):
             user=self.user.username,
             author=self.author.username,
         )
+
+
+class Like(models.Model):
+    blog_post = models.ForeignKey(
+        Post,
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name='Пост'
+    )
+    liked_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name='Поставил лайк'
+    )
+    like = models.BooleanField(
+        verbose_name='Like',
+        default=False
+    )
+    created = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Дата и время лайка'
+    )
+
+    class Meta:
+        verbose_name = 'Лайк'
+        verbose_name_plural = 'Лайки'
+
+    def __str__(self):
+        return f'{self.liked_by}: {self.blog_post} {self.like}'

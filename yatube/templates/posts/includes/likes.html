@@ -1,0 +1,27 @@
+{% load likes_post %}
+
+{% is_liked blog_post_id as is_liked_bool %}
+{% count_likes blog_post_id as likes_counter %}
+
+{% if is_liked_bool %}
+  {% blog_likes_id blog_post_id as blog_likes_id %}
+{% endif %}
+
+<form action='{% if not is_liked_bool %}{% url 'posts:add' %}{% else %}{% url 'posts:remove' %}{% endif %}' method='post'>{% csrf_token %}
+    <input type='hidden' name='blog_post_id' value='{{ blog_post_id }}'>
+    <input type='hidden' name='user_id' value='{% if user.is_authenticated %}{{ request.user.id }}{% else %}None{% endif %}'>
+    <input type='hidden' name='url_from' value='{{ request.path }}'>
+
+    {% if is_liked_bool %}
+        <input type='hidden' name='blog_likes_id' value='{{ blog_likes_id }}'>
+    {% endif %}
+
+    <button type='submit' class='btn btn-danger'>
+        {% if not is_liked_bool %}
+            <i class='fi-xnluxl-heart'></i>
+        {% else %}
+            <i class='fi-xnsuxl-heart-solid'></i>
+        {% endif %}
+        <span class='likes-qty'>{{ likes_counter }}</span>
+    </button>
+</form>
