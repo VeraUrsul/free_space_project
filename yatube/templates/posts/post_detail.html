@@ -41,7 +41,7 @@
         <p>
           {{ post.text|linebreaksbr }}
         </p>
-        {% include 'posts/includes/likes.html' %}
+        {% include 'posts/includes/likes.html' with blog_post_id=post.id %}
         {% include 'posts/includes/comment_list.html' %}
       </article>
   </div> 

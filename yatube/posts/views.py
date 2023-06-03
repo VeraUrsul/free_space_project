@@ -126,7 +126,7 @@ class AddLikeView(View):
         blog_post_inst = Post.objects.get(id=blog_post_id)
 
         try:
-            blog_post_inst = Like.objects.get(
+            blog_like_inst = Like.objects.get(
                 blog_post=blog_post_inst,
                 liked_by=user_inst
             )
