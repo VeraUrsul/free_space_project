@@ -9,6 +9,7 @@
     
     {% for post in page_obj %}
       {% include 'posts/includes/post_markup.html' with hide_group=True  %}
+      {% include 'posts/includes/likes.html' with blog_post_id=post.id %}
       {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
     {% include 'posts/includes/paginator.html' %}

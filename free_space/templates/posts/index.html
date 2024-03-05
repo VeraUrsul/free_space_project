@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% block title %}
-  Посты авторов, на которые Вы подписаны
+  Последние обновления на сайте
 {% endblock %}
 {% block content %}
   {% load cache %}
   {% cache 20 index_page %}
     <div class="container">        
-      <h1>Посты авторов, на которые Вы подписаны</h1>
-      {% include 'posts/includes/switcher.html' with follow=True %}
-      
+      <h1>Последние обновления на сайте</h1>
+      {% include 'posts/includes/switcher.html' with index=True %}
       {% for post in page_obj %}
         {% include 'posts/includes/post_markup.html' %}
+        {% include 'posts/includes/likes.html' with blog_post_id=post.id %}
         {% if not forloop.last %}<hr>{% endif %}
       {% endfor %}
       {% include 'posts/includes/paginator.html' %}
