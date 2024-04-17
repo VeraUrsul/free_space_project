@@ -1,8 +1,18 @@
 ## Описание проекта
 
+Free Space - социальная сеть, где ты можешь делиться всем что тебе нравится ;)
 
+Возможности на плаформе:
+- публиковать посты с картинками
+- добавлять посты в тематическую группу
+- лайкать понравившиеся посты
+- подписываться на любимых авторов
+- добавлять посты в раздел Избранное
 
-## Разворачиваем проект на удаленном сервере
+### Технологии
+
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
 
 ### 1. Клонирование кода приложения с GitHub на сервер
 ```
@@ -38,9 +48,21 @@ python manage.py migrate
 
 ```
 
-## Создание и заполнение файла .env
+## 4. Создание и заполнение файла .env
 
 ```
 
 touch .env
 nano .env
+
+```
+
+# 5. Запускаем приложение
+
+```
+
+ python manage.py runserver
+
+ ```
+
+## Автор [Урсул Вера](https://github.com/VeraUrsul)
