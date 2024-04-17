@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}
-  Последние обновления на сайте
+  Лента новостей
 {% endblock %}
 {% block content %}
   {% load cache %}
   {% cache 20 index_page %}
     <div class="container">        
-      <h1>Последние обновления на сайте</h1>
+      <h2>Новые публикации</h2>
       {% include 'posts/includes/switcher.html' with index=True %}
       {% for post in page_obj %}
         {% include 'posts/includes/post_markup.html' %}
